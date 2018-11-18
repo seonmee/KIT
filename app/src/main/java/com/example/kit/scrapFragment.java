@@ -50,14 +50,12 @@ public class scrapFragment extends Fragment {
         db = new DatabaseHelper(view.getContext());
 
         /* 스크랩시 데이터 받아오기 */
-        /* 코드 추가 해야함 */
+        /* 국내 해외 뉴스에서 처리 */
         db.createScrab("블록체인", "주가 폭락");
         db.createScrab("블록체인", "블록체인 중국시장");
         db.createScrab("IOT", "Internet");
         db.createScrab("IOT", "of");
         db.createScrab("IOT", "thing");
-
-
        /* if(db.createScrab("블록체인", "주가 폭락") == true) {
             Toast.makeText(view.getContext(),"Success",Toast.LENGTH_LONG).show();
         }else {
@@ -65,7 +63,7 @@ public class scrapFragment extends Fragment {
         }*/
 
 
-        /* 데이터 삽입 */
+        /* DB에 저장된 키워드를 LIST에 추가 */
         mScrapNewsList = new ArrayList<>();
 
         List<String> keywords = db.getKeyword();

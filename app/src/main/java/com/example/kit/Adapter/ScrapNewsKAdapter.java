@@ -67,10 +67,10 @@ public class ScrapNewsKAdapter extends RecyclerView.Adapter<ScrapNewsKAdapter.Vi
 
         viewHolder.keyword.setText("# "+ scrapNewsK.getmKeyword());
 
-        /* 데이터 삽입 */
+        /* DB에서 키워드에 뉴스LIST를 불러와 List에 저장  */
         mScrapNewsList = mDb.getNewsItem(scrapNewsK.getmKeyword());
 
-        mScrapNewsAdapter = new ScrapNewsAdapter(mScrapNewsList);
+        mScrapNewsAdapter = new ScrapNewsAdapter(mScrapNewsList,mContext,mDb);
         viewHolder.newskList.setAdapter(mScrapNewsAdapter);
 
     }

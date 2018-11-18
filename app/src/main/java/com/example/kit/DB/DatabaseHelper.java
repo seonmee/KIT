@@ -101,7 +101,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         while (cursor.moveToNext()){
             String title = cursor.getString(
                     cursor.getColumnIndexOrThrow(scrapDB.COLUMN_TITLE));
-            ScrapNewsBean scrapNewsBean = new ScrapNewsBean(title);
+            String memo = cursor.getString(
+                    cursor.getColumnIndexOrThrow(scrapDB.COLUMN_MEMO));
+            ScrapNewsBean scrapNewsBean = new ScrapNewsBean(title,memo);
             scrapNews.add(scrapNewsBean);
         }
         cursor.close();
@@ -117,11 +119,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(scrapDB.COLUMN_MEMO,memo);
 
-        String selection = scrapDB.COLUMN_TITLE  + " =? ";
+        String selection = scrapDB.COLUMN_TITLE  + "=?";
         String[] selectionArgs = {title};
 
         db.update(
-                scrapDB.COLUMN_MEMO,
+                scrapDB.TABLE_NAME,
                 values,
                 selection,
                 selectionArgs);

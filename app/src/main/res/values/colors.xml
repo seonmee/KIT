@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#d50000</color>
+    <color name="colorAccent">#b1d50000</color>
     <color name="msg_no_notes">#c3c3c3</color>
     <color name="hint_enter_note">#89c3c3c3</color>
     <color name="timestamp">#858585</color>
