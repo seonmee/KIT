@@ -81,7 +81,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return  keywords;
     }
 
-    /* 같은 키워드의 기사 메모, 제목, 시간 */
+    /* get 메모, 제목, 시간
+     * use 키워드
+      * */
     public List<ScrapNewsBean> getNewsItem (String keyword){
 
         List<ScrapNewsBean> scrapNews = new ArrayList<>();
@@ -127,6 +129,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 values,
                 selection,
                 selectionArgs);
+    }
+
+    /* get 메모, 제목, 시간
+     * use 제목
+     * */
+    public ScrapNewsBean getNewsItem2 (String title){
+
+        ScrapNewsBean scrapNews = new ScrapNewsBean("","");
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Title = title;
+
+        Cursor cursor = db.query(
+                scrapDB.TABLE_NAME,
+                new String[]{scrapDB.COLUMN_MEMO,scrapDB.COLUMN_TIMESTAMP, scrapDB.COLUMN_KEYWORD},
+                scrapDB.COLUMN_TITLE + "=?",
+                new String[]{String.valueOf(title)},
+                null,
+                null,
+                null,
+                null);
+
+        while (cursor.moveToNext()){
+            String memo = cursor.getString(
+                    cursor.getColumnIndexOrThrow(scrapDB.COLUMN_MEMO));
+            scrapNews = new ScrapNewsBean(title,memo);
+        }
+
+        cursor.close();
+        return scrapNews;
+
     }
 
 }

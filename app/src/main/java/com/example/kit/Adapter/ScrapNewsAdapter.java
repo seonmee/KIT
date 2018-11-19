@@ -62,6 +62,13 @@ public class ScrapNewsAdapter extends RecyclerView.Adapter<ScrapNewsAdapter.View
         final ScrapNewsBean scrapNews = mNewsList.get(position);
 
         viewHolder.title.setText(scrapNews.getmTitle());
+        viewHolder.title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /* 뉴스 링크로 이동 */
+            }
+        });
+
         viewHolder.memo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

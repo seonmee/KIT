@@ -71,10 +71,16 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.memo_cancel:
                 cancel();
+                break;
             case R.id.memo_store:
                 mDb.setMemo(mMemoTxt.getText().toString(),mSb.getmTitle());
+                /* db에 저장된 memo 내용을 다시 setText */
+                ScrapNewsBean news = mDb.getNewsItem2(mSb.getmTitle());
+                mMemoTxt.setText(news.getmMemo());
                 Toast.makeText(mContext,mMemoTxt.getText().toString(),Toast.LENGTH_LONG).show();
+                break;
              default:
+                 break;
 
         }
     }
