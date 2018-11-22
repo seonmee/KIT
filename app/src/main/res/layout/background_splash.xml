@@ -13,6 +13,6 @@
             android:layout_weight="8"
             android:paddingLeft="110dp"
             android:paddingRight="110dp"
-            android:src="@drawable/kit_3" />
+            android:src="@drawable/kit_4" />
 
 </LinearLayout>
