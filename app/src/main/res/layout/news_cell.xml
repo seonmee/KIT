@@ -42,6 +42,8 @@
                     android:layout_alignParentBottom="true"
                     android:background="#70000000"
                     android:gravity="center"
+                    android:ellipsize="end"
+                    android:maxLines="2"
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
                     android:text="text"

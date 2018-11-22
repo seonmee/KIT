@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:background="#D50000">
 
-
-    <ImageView android:id="@+id/splash_screen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/kit3"
-        android:layout_gravity="center"
-        android:paddingLeft="110dp"
-        android:paddingRight="110dp" />
-
+        <ImageView
+            android:id="@+id/splash_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="8"
+            android:paddingLeft="110dp"
+            android:paddingRight="110dp"
+            android:src="@drawable/kit_3" />
 
 </LinearLayout>
