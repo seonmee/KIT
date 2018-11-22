@@ -53,10 +53,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menu_bar:
-                Toast.makeText(getApplicationContext(),"메뉴 버튼",Toast.LENGTH_LONG).show();
-                return true;
-
             default:
                 Toast.makeText(getApplicationContext(),"나머지 버튼",Toast.LENGTH_LONG).show();
                 return super.onOptionsItemSelected(item);
