@@ -71,7 +71,7 @@ public class newsEnglishFragment extends Fragment {
 
     public void getNews() {
         // Instantiate the RequestQueue.
-        String url ="https://newsapi.org/v2/top-headlines?sources=cnn&apiKey=84c04b988ee542a38f94ae96abc50406";
+        String url ="https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=84c04b988ee542a38f94ae96abc50406";
 
 // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
