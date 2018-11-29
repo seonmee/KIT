@@ -183,7 +183,7 @@ public class newsEnglishFragment extends Fragment {
 
     public void getNews2() {
         // Instantiate the RequestQueue.
-        String url ="https://newsapi.org/v2/top-headlines?sources=cnn&apiKey=84c04b988ee542a38f94ae96abc50406";
+        String url ="https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=84c04b988ee542a38f94ae96abc50406";
 
 // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -211,6 +211,7 @@ public class newsEnglishFragment extends Fragment {
                                 newsBean.setTitle(obj.getString("title"));
                                 newsBean.setUrlToImage(obj.getString("urlToImage"));
                                 newsBean.setContent(obj.getString("description"));
+                                newsBean.setUrl(obj.getString("url"));
 
                                 news.add(newsBean);
                             }
@@ -223,9 +224,8 @@ public class newsEnglishFragment extends Fragment {
                                     Object obj = v.getTag();
                                     if(obj != null){
                                         int position = (int) obj;
-                                        ((NewsAdapter)mAdapter).getNews(position).getContent();
                                         Intent intent = new Intent(getActivity(),NewsDetail.class);
-                                        intent.putExtra("content", ((NewsAdapter)mAdapter).getNews(position).getContent());
+                                        intent.putExtra("content", ((NewsAdapter)mAdapter).getNews(position).getUrl());
                                         startActivity(intent);
                                     }
 

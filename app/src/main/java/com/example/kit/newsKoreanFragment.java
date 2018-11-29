@@ -98,6 +98,7 @@ public class newsKoreanFragment extends Fragment {
     }
 
     public void getNews() {
+
         db = new KeywordDatabaseHelper(getActivity());
         newsDB = new NewsDatabaseHelper(getActivity());
         List<Keyword> keywords = db.getAllKeywords();
@@ -138,6 +139,8 @@ public class newsKoreanFragment extends Fragment {
                     intent.putExtra("content", ((NewsAdapter)mAdapter).getNews(position).getUrl());
                     startActivity(intent);
                 }
+        // Instantiate the RequestQueue.
+
 
             }
 
@@ -207,94 +210,5 @@ public class newsKoreanFragment extends Fragment {
         final List<newsBean> news = new ArrayList<>();
 
 // Request a string response from the provided URL.
-
-        List<StringRequest> SR = new ArrayList<>();
-        newsNum = 10;
-        for(listBean ListBean : urlList){
-            if(newsNum==10){
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, ListBean.getUrl(),
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-
-                                //Log.d("News", response);
-
-                                try {
-                                    JSONObject jsonObj = new JSONObject(response);
-
-                                    JSONArray arrayArticles = jsonObj.getJSONArray("items"); //뉴스 목록들 받아옴
-
-                                    //response ->> NewsData Class 분류
-                                    JSONObject objQueries = jsonObj.getJSONObject("queries");
-                                    JSONArray arrayRequest = objQueries.getJSONArray("request");
-                                    JSONObject objRequest = arrayRequest.getJSONObject(0);
-                                    newsNum = objRequest.getInt("count");
-
-                                    for (int i = 0, j = arrayArticles.length(); i < j; i++) {
-                                        JSONObject obj = arrayArticles.getJSONObject(i); //obj는 뉴스 하나의 내용
-
-                                        //Log.d("News", obj.toString());
-
-                                        newsBean newsBean = new newsBean();
-                                        newsBean.setTitle(obj.getString("title"));
-                                        //Log.d("ENews", newsBean.getTitle());
-                                        newsBean.setUrl(obj.getString("link"));
-                                        JSONObject pageObj = obj.getJSONObject("pagemap");
-                                        //Log.d("ENews", pageObj.toString());
-                                        JSONArray arrayMet = pageObj.getJSONArray("metatags");
-                                        //Log.d("ENews", arrayMet.toString());
-                                        JSONObject objMet = arrayMet.getJSONObject(0);
-                                        //Log.d("ENews", objMet.toString());
-                                        newsBean.setUrlToImage(objMet.getString("og:image"));
-                                        //Log.d("ENews", newsBean.getUrlToImage());
-                                        newsBean.setContent(objMet.getString("og:description"));
-                                        news.add(newsBean);
-                                    }
-
-                                    // specify an adapter (see also next example)
-                                    mAdapter = new NewsAdapter(news, getActivity(), new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Object obj = v.getTag();
-                                            if(obj != null){
-                                                int position = (int) obj;
-                                                //((NewsAdapter)mAdapter).getNews(position).getContent();
-                                                //Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(((NewsAdapter)mAdapter).getNews(position).getUrl()));
-                                                //startActivity(intent);
-                                                Intent intent = new Intent(getActivity(),NewsDetail.class);
-                                                intent.putExtra("content", ((NewsAdapter)mAdapter).getNews(position).getUrl());
-                                                startActivity(intent);
-                                            }
-
-
-                                        }
-
-                                    });
-                                    mRecyclerView.setAdapter(mAdapter);//정상적으로 처리
-
-
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                });
-                SR.add(stringRequest);
-            }
-            else break;
-        }
-
-// Add the request to the RequestQueue.
-        for(StringRequest i : SR){
-            queue.add(i);
-        }
-        //queue.add(stringRequest);
-        //queue.add(stringRequest2);
-    }
 
  */
