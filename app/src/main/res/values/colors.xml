@@ -2,11 +2,25 @@
 <resources>
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#ffcc0000</color>
+    <color name="colorAccent">#cc0000</color>
     <color name="msg_no_notes">#5bc3c3c3</color>
     <color name="hint_enter_note">#89c3c3c3</color>
     <color name="timestamp">#858585</color>
     <color name="note_list_text">#232323</color>
+
+    <array name="colors">
+        <item name="design" type="color">#c467f4</item>
+        <item name="ios" type="color">#3b9aee</item>
+        <item name="android" type="color">#9bc53d</item>
+        <item name="web" type="color">#f4a261</item>
+        <item name="business" type="color">#1ed2bb</item>
+        <item name="research" type="color">#778da9</item>
+        <item name="sales" type="color">#20bf55</item>
+        <item name="quality" type="color">#9f9fed</item>
+        <item name="customer" type="color">#fc6177</item>
+        <item name="other" type="color">#bcbcbc</item>
+    </array>
+
 </resources>
 
 

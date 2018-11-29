@@ -7,6 +7,7 @@ public class newsBean implements Serializable {
     private String urlToImage;
     private String content;
     private String url;
+    private String keyword;
 
     public String getContent() {
         return content;
@@ -35,4 +36,12 @@ public class newsBean implements Serializable {
     public String getUrl() { return url; }
 
     public void setUrl(String url) { this.url = url; }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
 }

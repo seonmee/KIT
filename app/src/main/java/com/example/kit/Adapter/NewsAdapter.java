@@ -3,6 +3,7 @@ package com.example.kit.Adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         String content = news.getContent();
 
         if (content != null && content.length() > 0) {
-            holder.TextView_content.setText(content);
+            holder.TextView_content.setText(Html.fromHtml(content));
         }
         Uri uri = Uri.parse(news.getUrlToImage());
 

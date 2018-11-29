@@ -3,6 +3,7 @@
     package="com.example.kit">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -21,6 +22,10 @@
         <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".NewsDetail">
+        </activity>
+        <activity
+            android:name=".keywordDialog"
+            android:theme="@android:style/Theme.Dialog">
         </activity>
     </application>
 
