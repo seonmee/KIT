@@ -28,12 +28,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <ImageView
+                <CheckBox
                     android:id="@+id/ImageView_bookmark"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="bottom|left"
-                    android:src="@drawable/bookmark_blank" />
+                    android:button="@drawable/bookmark_scrap" />
 
                 <TextView
                     android:id="@+id/TextView_title"

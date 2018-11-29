@@ -7,10 +7,14 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.kit.Bean.newsBean;
+import com.example.kit.DB.DatabaseHelper;
 import com.example.kit.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -22,17 +26,30 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
     private List<newsBean> mDataset;
     private static View.OnClickListener onClickListener;
 
+    private static DatabaseHelper mDb;
+    //int i = 0;
+
+    private Context mContext;
+
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView TextView_title;
         public TextView TextView_content;
         public SimpleDraweeView ImageView_title;
+
+        //public ImageView bookmark;
+        public CheckBox bookmark;
+
         public View rootView;
         public MyViewHolder(View v) {
             super(v);
             TextView_title = v.findViewById(R.id.TextView_title);
             TextView_content = v.findViewById(R.id.TextView_content);
             ImageView_title = v.findViewById(R.id.ImageView_title);
+
+            bookmark = v.findViewById(R.id.ImageView_bookmark);
+            mDb = new DatabaseHelper(v.getContext());
+
             rootView = v;
 
             v.setClickable(true);
@@ -45,6 +62,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
     public NewsAdapter(List<newsBean> myDataset, Context context, View.OnClickListener onClick) {
         mDataset = myDataset;
         onClickListener = onClick;
+
+        mContext = context;
+
         Fresco.initialize(context);
         //Activity context 메모리 누수 발생 가능ㅠㅠ
     }
@@ -62,10 +82,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) { //position에 있는 정보를 가져오기
+    public void onBindViewHolder(final MyViewHolder holder, int position) { //position에 있는 정보를 가져오기
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        newsBean news = mDataset.get(position);
+        final newsBean news = mDataset.get(position);
 
         holder.TextView_title.setText(news.getTitle());
         String content = news.getContent();
@@ -79,6 +99,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
         //tag
         holder.rootView.setTag(position);
+
+        /* 스크랩 */
+        holder.bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+                if (((CheckBox)v).isChecked()){
+                    mDb.createScrab(" keyword list ", news.getTitle(), news.getUrl());
+                }
+                else {
+                    mDb.delete(news.getTitle());
+                }
+            }
+        });
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

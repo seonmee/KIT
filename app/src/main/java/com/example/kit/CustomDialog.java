@@ -1,24 +1,19 @@
 package com.example.kit;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ClipDrawable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
+
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kit.Adapter.ScrapNewsAdapter;
 import com.example.kit.Bean.ScrapNewsBean;
 import com.example.kit.DB.DatabaseHelper;
-
-import java.net.PasswordAuthentication;
 
 public class CustomDialog extends Dialog implements View.OnClickListener {
 
@@ -35,16 +30,15 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
     private ScrapNewsBean mSb;
     private DatabaseHelper mDb;
 
-    public CustomDialog(Context context) {
+    public CustomDialog(Context context, ScrapNewsBean scrapNews, DatabaseHelper mDb) {
         super(context);
         mContext = context;
 
     }
-    public CustomDialog(Context context, ScrapNewsBean sb, DatabaseHelper db){
+    public CustomDialog(Context context, ScrapNewsBean sb){
         super(context);
         mContext = context;
         mSb = sb;
-        mDb = db;
     }
 
     @SuppressLint("WrongViewCast")
@@ -53,6 +47,8 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(LAYOUT);
 
+        mDb = new DatabaseHelper(mContext);
+
         mMemoTxt = (EditText)findViewById(R.id.note);
 
         cancelTx = (TextView)findViewById(R.id.memo_cancel);
@@ -60,7 +56,7 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
 
         mMemo = mSb.getmMemo();
 
-            mMemoTxt.setText(mMemo);
+        mMemoTxt.setText(mMemo);
 
         cancelTx.setOnClickListener(this);
         storeTx.setOnClickListener(this);
@@ -74,13 +70,11 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.memo_store:
                 mDb.setMemo(mMemoTxt.getText().toString(),mSb.getmTitle());
-                /* db에 저장된 memo 내용을 다시 setText */
-                ScrapNewsBean news = mDb.getNewsItem2(mSb.getmTitle());
-                mMemoTxt.setText(news.getmMemo());
                 Toast.makeText(mContext,mMemoTxt.getText().toString(),Toast.LENGTH_LONG).show();
+
                 break;
-             default:
-                 break;
+            default:
+                break;
 
         }
     }
