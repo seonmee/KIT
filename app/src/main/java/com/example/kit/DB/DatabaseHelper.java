@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.media.session.PlaybackState;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.kit.Bean.ScrapNewsBean;
 
@@ -37,9 +39,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public void delete(String title){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String mTitle = title;
+
+        db.execSQL("DELETE FROM " + scrapDB.TABLE_NAME
+                + " WHERE " + scrapDB.COLUMN_TITLE
+                + " = " + "\"" + title + "\""
+                + ";");
+    }
+
     /* id와 timestamps는 자동으로 삽입됨 */
     /* 북마크를 클릭시 추가 */
-    public boolean createScrab (String keyword, String title) {
+    public void createScrab (String keyword, String title, String url) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -47,9 +59,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         values.put(scrapDB.COLUMN_KEYWORD, keyword);
         values.put(scrapDB.COLUMN_TITLE, title);
+        values.put(scrapDB.COLUMN_URL,url);
 
-        /* insert row */
-        return db.insert(scrapDB.TABLE_NAME, null, values) != -1;
+        db.insert(scrapDB.TABLE_NAME, null, values);
 
     }
 
@@ -83,7 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /* get 메모, 제목, 시간
      * use 키워드
-      * */
+     * */
     public List<ScrapNewsBean> getNewsItem (String keyword){
 
         List<ScrapNewsBean> scrapNews = new ArrayList<>();
@@ -134,16 +146,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /* get 메모, 제목, 시간
      * use 제목
      * */
-    public ScrapNewsBean getNewsItem2 (String title){
-
-        ScrapNewsBean scrapNews = new ScrapNewsBean("","");
-
+    public String getUrl (String title){
         SQLiteDatabase db = this.getReadableDatabase();
         String Title = title;
+        String url = " ";
 
         Cursor cursor = db.query(
                 scrapDB.TABLE_NAME,
-                new String[]{scrapDB.COLUMN_MEMO,scrapDB.COLUMN_TIMESTAMP, scrapDB.COLUMN_KEYWORD},
+                new String[]{scrapDB.COLUMN_URL},
                 scrapDB.COLUMN_TITLE + "=?",
                 new String[]{String.valueOf(title)},
                 null,
@@ -152,14 +162,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 null);
 
         while (cursor.moveToNext()){
-            String memo = cursor.getString(
-                    cursor.getColumnIndexOrThrow(scrapDB.COLUMN_MEMO));
-            scrapNews = new ScrapNewsBean(title,memo);
+            url = cursor.getString(
+                    cursor.getColumnIndexOrThrow(scrapDB.COLUMN_URL)
+            );
         }
 
         cursor.close();
-        return scrapNews;
-
+        return url;
     }
+
+    /*
+    *
+    public boolean isTitle(String title){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(
+                scrapDB.TABLE_NAME,
+                new String[]{scrapDB.COLUMN_TITLE} ,
+                scrapDB.COLUMN_TITLE + "=?" ,
+                new String[]{String.valueOf(title)},
+                null,
+                null,
+                null
+        );
+
+        if(cursor != null){
+            return false;
+        }else {
+            return  true;
+        }
+    }
+    * */
 
 }

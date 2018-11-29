@@ -27,7 +27,7 @@ public class scrapFragment extends Fragment {
 
     private List<ScrapNewsKBean> mScrapNewsList;
 
-    private RecyclerView mRecyvlerview;
+    public RecyclerView mRecyclerview;
     private ScrapNewsKAdapter adapter;
 
     /* db */
@@ -43,25 +43,15 @@ public class scrapFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_scrap,container,false);
 
-        mRecyvlerview = (RecyclerView) view.findViewById(R.id.scrapList);
-        mRecyvlerview.setHasFixedSize(true);
-        mRecyvlerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        mRecyclerview = (RecyclerView) view.findViewById(R.id.scrapList);
+        mRecyclerview.setHasFixedSize(false);
+        mRecyclerview.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         db = new DatabaseHelper(view.getContext());
 
+
         /* 스크랩시 데이터 받아오기 */
         /* 국내 해외 뉴스에서 처리 */
-        db.createScrab("블록체인", "주가 폭락");
-        db.createScrab("블록체인", "블록체인 중국시장");
-        db.createScrab("IOT", "Internet");
-        db.createScrab("IOT", "of");
-        db.createScrab("IOT", "thing");
-       /* if(db.createScrab("블록체인", "주가 폭락") == true) {
-            Toast.makeText(view.getContext(),"Success",Toast.LENGTH_LONG).show();
-        }else {
-            Toast.makeText(view.getContext(),"Fail",Toast.LENGTH_LONG).show();
-        }*/
-
 
         /* DB에 저장된 키워드를 LIST에 추가 */
         mScrapNewsList = new ArrayList<>();
@@ -73,9 +63,15 @@ public class scrapFragment extends Fragment {
         };
 
         adapter =  new ScrapNewsKAdapter(mScrapNewsList,view.getContext(),db);
-        mRecyvlerview.setAdapter(adapter);
+        mRecyclerview.setAdapter(adapter);
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
     }
 
     // TODO: Rename and change types and number of parameters

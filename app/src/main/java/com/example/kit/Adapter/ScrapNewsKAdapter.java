@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +15,12 @@ import com.example.kit.Bean.ScrapNewsKBean;
 import com.example.kit.DB.DatabaseHelper;
 import com.example.kit.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /*
-* by Seonmi Hyeon
-*
-* */
+ * by Seonmi Hyeon
+ *
+ * */
 
 public class ScrapNewsKAdapter extends RecyclerView.Adapter<ScrapNewsKAdapter.ViewHolder> {
 
@@ -47,7 +47,7 @@ public class ScrapNewsKAdapter extends RecyclerView.Adapter<ScrapNewsKAdapter.Vi
             keyword = (TextView) itemView.findViewById(R.id.keyword);
 
             newskList = (RecyclerView) itemView.findViewById(R.id.newslist_k);
-            newskList.setHasFixedSize(true);
+            newskList.setHasFixedSize(false);
             newskList.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
 
         }
@@ -69,7 +69,6 @@ public class ScrapNewsKAdapter extends RecyclerView.Adapter<ScrapNewsKAdapter.Vi
 
         /* DB에서 키워드에 뉴스LIST를 불러와 List에 저장  */
         mScrapNewsList = mDb.getNewsItem(scrapNewsK.getmKeyword());
-
         mScrapNewsAdapter = new ScrapNewsAdapter(mScrapNewsList,mContext,mDb);
         viewHolder.newskList.setAdapter(mScrapNewsAdapter);
 
