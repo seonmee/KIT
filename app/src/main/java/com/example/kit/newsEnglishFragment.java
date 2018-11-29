@@ -142,9 +142,6 @@ public class newsEnglishFragment extends Fragment {
                                             Object obj = v.getTag();
                                             if(obj != null){
                                                 int position = (int) obj;
-                                                //((NewsAdapter)mAdapter).getNews(position).getContent();
-                                                //Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(((NewsAdapter)mAdapter).getNews(position).getUrl()));
-                                                //startActivity(intent);
                                                 Intent intent = new Intent(getActivity(),NewsDetail.class);
                                                 intent.putExtra("content", ((NewsAdapter)mAdapter).getNews(position).getUrl());
                                                 startActivity(intent);

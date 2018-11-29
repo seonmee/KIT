@@ -33,7 +33,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_gravity="bottom|left"
-                    android:src="@drawable/bookmark2" />
+                    android:src="@drawable/bookmark_blank" />
 
                 <TextView
                     android:id="@+id/TextView_title"
@@ -41,8 +41,8 @@
                     android:layout_height="60dp"
                     android:layout_alignParentBottom="true"
                     android:background="#70000000"
-                    android:gravity="center"
                     android:ellipsize="end"
+                    android:gravity="center"
                     android:maxLines="2"
                     android:paddingLeft="6dp"
                     android:paddingRight="6dp"
