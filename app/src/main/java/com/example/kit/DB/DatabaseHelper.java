@@ -39,6 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /* title 안에 "" 가 있으면 error */
     public void delete(String title){
         SQLiteDatabase db = this.getWritableDatabase();
         String mTitle = title;
@@ -171,28 +172,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return url;
     }
 
-    /*
-    *
-    public boolean isTitle(String title){
-
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(
-                scrapDB.TABLE_NAME,
-                new String[]{scrapDB.COLUMN_TITLE} ,
-                scrapDB.COLUMN_TITLE + "=?" ,
-                new String[]{String.valueOf(title)},
-                null,
-                null,
-                null
-        );
-
-        if(cursor != null){
-            return false;
-        }else {
-            return  true;
-        }
-    }
-    * */
 
 }

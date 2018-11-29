@@ -7,6 +7,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,7 +27,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
     private static View.OnClickListener onClickListener;
 
     private static DatabaseHelper mDb;
-    int i = 0;
+    //int i = 0;
 
     private Context mContext;
 
@@ -36,7 +37,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         public TextView TextView_content;
         public SimpleDraweeView ImageView_title;
 
-        public ImageView bookmark;
+        //public ImageView bookmark;
+        public CheckBox bookmark;
 
         public View rootView;
         public MyViewHolder(View v) {
@@ -102,17 +104,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         holder.bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,holder.TextView_title.getText().toString(),Toast.LENGTH_LONG).show();
-                /* 연결 */
-                i = 1 - i;
-                if ( i == 1 ){
-                    mDb.createScrab(" keyword list ", holder.TextView_title.getText().toString(), news.getUrl());
-                    // holder.bookmark.setImageResource();
+                
+                if (((CheckBox)v).isChecked()){
+                    mDb.createScrab(" keyword list ", news.getTitle(), news.getUrl());
                 }
-                else{
-                    /* 해당 기사 db에서 삭제*/
-                    mDb.delete(holder.TextView_title.getText().toString());
-                    // holder.bookmark.setImageResource();
+                else {
+                    mDb.delete(news.getTitle());
                 }
             }
         });
