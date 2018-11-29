@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar2"
@@ -22,7 +23,19 @@
             android:textColor="@android:color/background_light"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+
+
+        <Button android:id="@+id/clip"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@drawable/clip"
+            android:onClick="onClick"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"/>
+
     </android.support.v7.widget.Toolbar>
+
 
     <WebView
         android:id="@+id/webView"

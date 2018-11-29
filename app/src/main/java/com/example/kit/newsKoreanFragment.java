@@ -74,7 +74,7 @@ public class newsKoreanFragment extends Fragment {
 
     public void getNews() {
         // Instantiate the RequestQueue.
-        String url ="https://www.googleapis.com/customsearch/v1?key=AIzaSyBCkBYSKgRZrNveVLYcHouy-764y0l-XxY&cx=000650060222557471131:igl-qjs8vfc&q=블록체인";
+        String url ="https://www.googleapis.com/customsearch/v1/siterestrict?key=AIzaSyBCkBYSKgRZrNveVLYcHouy-764y0l-XxY&cx=000650060222557471131:igl-qjs8vfc&q=블록체인";
 
 // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -116,20 +116,15 @@ public class newsKoreanFragment extends Fragment {
 
                             // specify an adapter (see also next example)
                             mAdapter = new NewsAdapter(news, getActivity(), new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Object obj = v.getTag();
-                                    if(obj != null){
-                                        int position = (int) obj;
-                                        //((NewsAdapter)mAdapter).getNews(position).getContent();
-                                        //Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse(((NewsAdapter)mAdapter).getNews(position).getUrl()));
-                                        //startActivity(intent);
-                                        Intent intent = new Intent(getActivity(),NewsDetail.class);
-                                        intent.putExtra("content", ((NewsAdapter)mAdapter).getNews(position).getUrl());
-                                        startActivity(intent);
-                                    }
-
-
+                                        @Override
+                                        public void onClick(View v) {
+                                            Object obj = v.getTag();
+                                            if(obj != null){
+                                                int position = (int) obj;
+                                                Intent intent = new Intent(getActivity(),NewsDetail.class);
+                                                intent.putExtra("content", ((NewsAdapter)mAdapter).getNews(position).getUrl());
+                                                startActivity(intent);
+                                            }
                                 }
 
                             });
