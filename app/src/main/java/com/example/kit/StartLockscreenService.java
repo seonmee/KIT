@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+
 /**
  * Created by Sebastian Rask on 17-12-2016.
  */
