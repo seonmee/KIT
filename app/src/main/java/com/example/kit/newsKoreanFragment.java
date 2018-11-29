@@ -71,7 +71,6 @@ public class newsKoreanFragment extends Fragment implements View.OnClickListener
         switch (id) {
             case R.id.fab:
                 anim();
-                Toast.makeText(getActivity(), "Floating Action Button", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fab1:
                 anim();
@@ -106,16 +105,6 @@ public class newsKoreanFragment extends Fragment implements View.OnClickListener
 
         getNews();
 
-//        FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(),keywordDialog.class);
-//                intent.putExtra("page", 0);
-//                startActivityForResult(intent,10001);
-//            }
-//
-//        });
 
         fab_open = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.fab_close);

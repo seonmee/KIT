@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,7 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class newsEnglishFragment extends Fragment {
+public class newsEnglishFragment extends Fragment implements View.OnClickListener{
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -39,11 +42,33 @@ public class newsEnglishFragment extends Fragment {
     private int newsNum;
     RequestQueue queue;
 
+    private Animation fab_open, fab_close;
+    private Boolean isFabOpen = false;
+    private FloatingActionButton fab, fab1, fab2;
+
 
     public newsEnglishFragment() {
         // Required empty public constructor
     }
-
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.fab:
+                anim();
+                break;
+            case R.id.fab1:
+                anim();
+                Intent intent = new Intent(getActivity(),keywordDialog.class);
+                intent.putExtra("page", 0);
+                startActivityForResult(intent,10001);
+                break;
+            case R.id.fab2:
+                anim();
+                Toast.makeText(getActivity(), "첫화면 뉴스", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,15 +88,16 @@ public class newsEnglishFragment extends Fragment {
         queue = Volley.newRequestQueue(view.getContext()); //초기화
         //getNews("iot");
         getNews2();
-        FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),keywordDialog.class);
-                intent.putExtra("page", 1);
-                startActivity(intent);
-            }
-        });
+        fab_open = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.fab_open);
+        fab_close = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.fab_close);
+
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab1 = (FloatingActionButton) view.findViewById(R.id.fab1);
+        fab2 = (FloatingActionButton) view.findViewById(R.id.fab2);
+
+        fab.setOnClickListener(this);
+        fab1.setOnClickListener(this);
+        fab2.setOnClickListener(this);
 
         //1. 화면이 로딩되면 뉴스정보를 받아온다.
         //2. 받아온 정보를 Adapter에 넘겨준다.
@@ -254,6 +280,22 @@ public class newsEnglishFragment extends Fragment {
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+    public void anim() {
+
+        if (isFabOpen) {
+            fab1.startAnimation(fab_close);
+            fab2.startAnimation(fab_close);
+            fab1.setClickable(false);
+            fab2.setClickable(false);
+            isFabOpen = false;
+        } else {
+            fab1.startAnimation(fab_open);
+            fab2.startAnimation(fab_open);
+            fab1.setClickable(true);
+            fab2.setClickable(true);
+            isFabOpen = true;
+        }
     }
 
 }
