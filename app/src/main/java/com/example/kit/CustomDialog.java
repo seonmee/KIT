@@ -70,8 +70,7 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.memo_store:
                 mDb.setMemo(mMemoTxt.getText().toString(),mSb.getmTitle());
-                Toast.makeText(mContext,mMemoTxt.getText().toString(),Toast.LENGTH_LONG).show();
-
+                /* bookmark가 unclick 되야함*/
                 break;
             default:
                 break;

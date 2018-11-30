@@ -1,6 +1,8 @@
 package com.example.kit.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import com.example.kit.Bean.newsBean;
 import com.example.kit.DB.DatabaseHelper;
 import com.example.kit.R;
+import com.example.kit.database.model.News;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 
@@ -104,9 +107,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         holder.bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+
                 if (((CheckBox)v).isChecked()){
-                    mDb.createScrab(" keyword list ", news.getTitle(), news.getUrl());
+                    mDb.createScrab(news.getKeyword(), news.getTitle(), news.getUrl());
                 }
                 else {
                     mDb.delete(news.getTitle());

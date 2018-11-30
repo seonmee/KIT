@@ -2,9 +2,11 @@ package com.example.kit;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -59,6 +61,8 @@ public class newsKoreanFragment extends Fragment implements View.OnClickListener
     private Animation fab_open, fab_close;
     private Boolean isFabOpen = false;
     private FloatingActionButton fab, fab1, fab2;
+
+    private List<newsBean> mNewsBeans;
 
 
     public newsKoreanFragment() {
@@ -144,7 +148,7 @@ public class newsKoreanFragment extends Fragment implements View.OnClickListener
             }
             getNewsList.clear();
         }
-        List<newsBean> newsBeans = new ArrayList<>();
+        mNewsBeans = new ArrayList<>();
         for(News news : newsList){
             newsBean newsBean = new newsBean();
             newsBean.setUrl(news.getUrl());
@@ -152,10 +156,10 @@ public class newsKoreanFragment extends Fragment implements View.OnClickListener
             newsBean.setTitle(news.getTitle());
             newsBean.setKeyword(news.getKey());
             newsBean.setUrlToImage(news.getImg());
-            newsBeans.add(newsBean);
+            mNewsBeans.add(newsBean);
         }
 
-        mAdapter = new NewsAdapter(newsBeans, getActivity(), new View.OnClickListener() {
+        mAdapter = new NewsAdapter(mNewsBeans, getActivity(), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Object obj = v.getTag();
