@@ -46,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("DELETE FROM " + scrapDB.TABLE_NAME
                 + " WHERE " + scrapDB.COLUMN_TITLE
-                + " = " + "\"" + title + "\""
+                + " = " + "\'" + title + "\'"
                 + ";");
     }
 

@@ -3,6 +3,7 @@ package com.example.kit;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.kit.Adapter.NewsAdapter;
 import com.example.kit.Adapter.ScrapNewsAdapter;
 import com.example.kit.Bean.ScrapNewsBean;
 import com.example.kit.DB.DatabaseHelper;
@@ -71,6 +73,7 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
             case R.id.memo_store:
                 mDb.setMemo(mMemoTxt.getText().toString(),mSb.getmTitle());
                 /* bookmark가 unclick 되야함*/
+
                 break;
             default:
                 break;
