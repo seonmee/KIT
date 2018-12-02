@@ -34,12 +34,12 @@ public class ScrapNewsAdapter extends RecyclerView.Adapter<ScrapNewsAdapter.View
     public List<ScrapNewsBean> mNewsList;
     private Context mContext;
     private DatabaseHelper mDb;
+    private CustomDialog mDialog;
 
 
-    public ScrapNewsAdapter(List<ScrapNewsBean> newsList,Context context, DatabaseHelper db){
+    public ScrapNewsAdapter(List<ScrapNewsBean> newsList,Context context){
         mNewsList = newsList;
         mContext = context;
-        mDb = db;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -60,6 +60,7 @@ public class ScrapNewsAdapter extends RecyclerView.Adapter<ScrapNewsAdapter.View
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.scrap_cell,viewGroup,false);
+        mDb = new DatabaseHelper(view.getContext());
         return new ViewHolder(view);
     }
 
@@ -83,8 +84,8 @@ public class ScrapNewsAdapter extends RecyclerView.Adapter<ScrapNewsAdapter.View
             @Override
             public void onClick(View v) {
                 /* 키워드에 해당하는 news list 의  position 번쩨 메모 */
-                CustomDialog dialog = new CustomDialog(mContext,scrapNews);
-                dialog.show();
+                mDialog = new CustomDialog(mContext,scrapNews);
+                mDialog.show();
             }
         });
 

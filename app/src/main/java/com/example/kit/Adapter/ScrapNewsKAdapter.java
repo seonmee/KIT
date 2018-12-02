@@ -31,10 +31,9 @@ public class ScrapNewsKAdapter extends RecyclerView.Adapter<ScrapNewsKAdapter.Vi
     private List<ScrapNewsBean> mScrapNewsList;
     private DatabaseHelper mDb;
 
-    public ScrapNewsKAdapter(List<ScrapNewsKBean> scrapNewsK, Context context, DatabaseHelper db){
+    public ScrapNewsKAdapter(List<ScrapNewsKBean> scrapNewsK, Context context){
         mNewsKList = scrapNewsK;
         mContext = context;
-        mDb = db;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -57,6 +56,7 @@ public class ScrapNewsKAdapter extends RecyclerView.Adapter<ScrapNewsKAdapter.Vi
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.scrap_kcell,viewGroup,false);
+        mDb = new DatabaseHelper(view.getContext());
         return new ViewHolder(view);
     }
 
@@ -69,7 +69,7 @@ public class ScrapNewsKAdapter extends RecyclerView.Adapter<ScrapNewsKAdapter.Vi
 
         /* DB에서 키워드에 뉴스LIST를 불러와 List에 저장  */
         mScrapNewsList = mDb.getNewsItem(scrapNewsK.getmKeyword());
-        mScrapNewsAdapter = new ScrapNewsAdapter(mScrapNewsList,mContext,mDb);
+        mScrapNewsAdapter = new ScrapNewsAdapter(mScrapNewsList,mContext);
         viewHolder.newskList.setAdapter(mScrapNewsAdapter);
 
     }

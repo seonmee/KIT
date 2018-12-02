@@ -40,7 +40,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         public TextView TextView_content;
         public SimpleDraweeView ImageView_title;
 
-        //public ImageView bookmark;
         public CheckBox bookmark;
 
         public View rootView;
@@ -49,6 +48,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             TextView_title = v.findViewById(R.id.TextView_title);
             TextView_content = v.findViewById(R.id.TextView_content);
             ImageView_title = v.findViewById(R.id.ImageView_title);
+
+
 
             bookmark = v.findViewById(R.id.ImageView_bookmark);
             mDb = new DatabaseHelper(v.getContext());
@@ -108,7 +109,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             @Override
             public void onClick(View v) {
 
+
                 if (((CheckBox)v).isChecked()){
+
                     mDb.createScrab(news.getKeyword(), news.getTitle(), news.getUrl());
                 }
                 else {
@@ -128,4 +131,5 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
     public newsBean getNews(int position) {
         return mDataset != null ?  mDataset.get(position) : null;
     }
+
 }

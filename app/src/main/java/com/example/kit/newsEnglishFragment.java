@@ -236,6 +236,9 @@ public class newsEnglishFragment extends Fragment implements View.OnClickListene
                                 newsBean.setContent(obj.getString("description"));
                                 newsBean.setUrl(obj.getString("url"));
 
+                                /* 스크랩시 키워드 필요 */
+                                newsBean.setKeyword("해외뉴스");
+
                                 news.add(newsBean);
                             }
 

@@ -32,11 +32,6 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
     private ScrapNewsBean mSb;
     private DatabaseHelper mDb;
 
-    public CustomDialog(Context context, ScrapNewsBean scrapNews, DatabaseHelper mDb) {
-        super(context);
-        mContext = context;
-
-    }
     public CustomDialog(Context context, ScrapNewsBean sb){
         super(context);
         mContext = context;
@@ -72,7 +67,10 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.memo_store:
                 mDb.setMemo(mMemoTxt.getText().toString(),mSb.getmTitle());
+                mSb.setmMemo(mMemoTxt.getText().toString());
                 /* bookmark가 unclick 되야함*/
+
+                cancel();
 
                 break;
             default:

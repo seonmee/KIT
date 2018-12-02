@@ -62,7 +62,7 @@ public class scrapFragment extends Fragment {
             mScrapNewsList.add(scrapNewsk);
         };
 
-        adapter =  new ScrapNewsKAdapter(mScrapNewsList,view.getContext(),db);
+        adapter =  new ScrapNewsKAdapter(mScrapNewsList,view.getContext());
         mRecyclerview.setAdapter(adapter);
 
         return view;
