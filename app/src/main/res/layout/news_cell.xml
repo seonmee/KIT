@@ -31,7 +31,7 @@
                 <CheckBox
                     android:id="@+id/ImageView_bookmark"
                     android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom|left"
                     android:button="@drawable/bookmark_scrap" />
 
