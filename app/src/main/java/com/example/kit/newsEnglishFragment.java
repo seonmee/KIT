@@ -259,6 +259,7 @@ public class newsEnglishFragment extends Fragment implements View.OnClickListene
                                 }
 
                             });
+
                             mRecyclerView.setAdapter(mAdapter);//정상적으로 처리
 
 

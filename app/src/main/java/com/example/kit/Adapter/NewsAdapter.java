@@ -3,6 +3,7 @@ package com.example.kit.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -24,6 +25,8 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
 
     private List<newsBean> mDataset;
@@ -40,6 +43,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         public TextView TextView_content;
         public SimpleDraweeView ImageView_title;
 
+        //public ImageView bookmark;
         public CheckBox bookmark;
 
         public View rootView;
@@ -49,9 +53,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             TextView_content = v.findViewById(R.id.TextView_content);
             ImageView_title = v.findViewById(R.id.ImageView_title);
 
-
-
             bookmark = v.findViewById(R.id.ImageView_bookmark);
+
+
+            //bookmark.setChecked();
             mDb = new DatabaseHelper(v.getContext());
 
             rootView = v;
@@ -109,9 +114,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
             @Override
             public void onClick(View v) {
 
+                /*SharedPreferences pref = v.getContext().getSharedPreferences("pref",MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+
+                editor.putBoolean("bookmark",((CheckBox)v).isChecked());
+                editor.commit();
+
+                *//* check box 상태 저장 *//*
+                editor.putBoolean("bookmark",true );
+                editor.commit();*/
 
                 if (((CheckBox)v).isChecked()){
-
                     mDb.createScrab(news.getKeyword(), news.getTitle(), news.getUrl());
                 }
                 else {
@@ -131,5 +144,4 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
     public newsBean getNews(int position) {
         return mDataset != null ?  mDataset.get(position) : null;
     }
-
 }
