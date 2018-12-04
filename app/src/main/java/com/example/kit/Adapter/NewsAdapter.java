@@ -3,7 +3,6 @@ package com.example.kit.Adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -30,6 +29,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> {
 
     private List<newsBean> mDataset;
+    private List<Boolean> mCheckstate;
     private static View.OnClickListener onClickListener;
 
     private static DatabaseHelper mDb;
@@ -55,7 +55,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
             bookmark = v.findViewById(R.id.ImageView_bookmark);
 
-
             //bookmark.setChecked();
             mDb = new DatabaseHelper(v.getContext());
 
@@ -75,7 +74,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         mContext = context;
 
         Fresco.initialize(context);
-        //Activity context 메모리 누수 발생 가능ㅠㅠ
+        //Activity contㅠㅐext 메모리 누수 발생 가능ㅠㅠ
     }
 
     // Create new views (invoked by the layout manager)
@@ -91,7 +90,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) { //position에 있는 정보를 가져오기
+    public void onBindViewHolder(final MyViewHolder holder, final int position) { //position에 있는 정보를 가져오기
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         final newsBean news = mDataset.get(position);
@@ -105,24 +104,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         Uri uri = Uri.parse(news.getUrlToImage());
 
         holder.ImageView_title.setImageURI(uri);
-
         //tag
         holder.rootView.setTag(position);
+
+        holder.bookmark.setChecked(mDb.getCheck(news.getTitle()));
 
         /* 스크랩 */
         holder.bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                /*SharedPreferences pref = v.getContext().getSharedPreferences("pref",MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-
-                editor.putBoolean("bookmark",((CheckBox)v).isChecked());
-                editor.commit();
-
-                *//* check box 상태 저장 *//*
-                editor.putBoolean("bookmark",true );
-                editor.commit();*/
 
                 if (((CheckBox)v).isChecked()){
                     mDb.createScrab(news.getKeyword(), news.getTitle(), news.getUrl());
@@ -130,6 +120,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
                 else {
                     mDb.delete(news.getTitle());
                 }
+
+                /* 누르면 저장되고 */
+                mDb.setCheck(((CheckBox)v).isChecked(),news.getTitle());
             }
         });
 
