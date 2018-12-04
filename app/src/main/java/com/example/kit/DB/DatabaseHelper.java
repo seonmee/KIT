@@ -73,15 +73,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
-       /* Cursor cursor = db.query(
-                scrapDB.TABLE_NAME,
-                new String []{scrapDB.COLUMN_KEYWORD},
-                null,
-                null,
-                null,
-                null,
-                null
-        );*/
         Cursor cursor = db.rawQuery("SELECT DISTINCT keyword FROM scrap",null);
 
         while (cursor.moveToNext()){
@@ -105,7 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(
                 scrapDB.TABLE_NAME,
-                new String[]{ scrapDB.COLUMN_TITLE, scrapDB.COLUMN_MEMO,scrapDB.COLUMN_TIMESTAMP},
+                new String[]{ scrapDB.COLUMN_TITLE, scrapDB.COLUMN_MEMO},
                 scrapDB.COLUMN_KEYWORD + "=?",
                 new String[]{String.valueOf(keyword)},
                 null,
@@ -172,5 +163,54 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return url;
     }
 
+   // 체크상태 저장
+   public void setCheck (Boolean check , String title){
+
+       SQLiteDatabase db = this.getWritableDatabase();
+
+       Boolean Check = check;
+       ContentValues values = new ContentValues();
+       values.put(scrapDB.COLUMN_ISCHECK,check);
+
+       String selection = scrapDB.COLUMN_TITLE  + "=?";
+       String[] selectionArgs = {title};
+
+       db.update(
+               scrapDB.TABLE_NAME,
+               values,
+               selection,
+               selectionArgs);
+   }
+
+    /* get 메모, 제목, 시간
+     * use 제목
+     * */
+    public Boolean getCheck (String title) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String Title = title;
+        Boolean check = false;
+        int checkint = 0;
+
+        Cursor cursor = db.query(
+                scrapDB.TABLE_NAME,
+                new String[]{scrapDB.COLUMN_ISCHECK},
+                scrapDB.COLUMN_TITLE + "=?",
+                new String[]{String.valueOf(title)},
+                null,
+                null,
+                null,
+                null);
+
+        while (cursor.moveToNext()) {
+            checkint = cursor.getInt(cursor.getColumnIndexOrThrow(scrapDB.COLUMN_ISCHECK));
+
+            if (checkint == 0) {
+                check = false;
+            } else {
+                check = true;
+            }
+        }
+        return check;
+    }
 
 }
