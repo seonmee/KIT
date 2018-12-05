@@ -107,7 +107,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
         //tag
         holder.rootView.setTag(position);
 
-        holder.bookmark.setChecked(mDb.getCheck(news.getTitle()));
+        if (mDb.getCheck(news.getTitle()) != null) {
+            holder.bookmark.setChecked(mDb.getCheck(news.getTitle()));
+        }
+        else{
+            holder.bookmark.setChecked(false);
+        }
 
         /* 스크랩 */
         holder.bookmark.setOnClickListener(new View.OnClickListener() {

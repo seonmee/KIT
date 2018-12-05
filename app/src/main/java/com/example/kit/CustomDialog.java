@@ -68,8 +68,6 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
             case R.id.memo_store:
                 mDb.setMemo(mMemoTxt.getText().toString(),mSb.getmTitle());
                 mSb.setmMemo(mMemoTxt.getText().toString());
-                /* bookmark가 unclick 되야함*/
-
                 cancel();
 
                 break;

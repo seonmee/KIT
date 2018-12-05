@@ -94,7 +94,7 @@ public class ScrapNewsAdapter extends RecyclerView.Adapter<ScrapNewsAdapter.View
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setMessage("정말 메모를 삭제 하시겠습니까?");
+                builder.setMessage("정말 기사를 삭제 하시겠습니까?");
 
                 builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
