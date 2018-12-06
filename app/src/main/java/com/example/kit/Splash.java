@@ -18,8 +18,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.kit.Adapter.NewsAdapter;
 import com.example.kit.Bean.listBean;
 import com.example.kit.Bean.newsBean;
+import com.example.kit.database.ENewsDatabaseHelper;
 import com.example.kit.database.KeywordDatabaseHelper;
 import com.example.kit.database.NewsDatabaseHelper;
+import com.example.kit.database.model.ENews;
 import com.example.kit.database.model.Keyword;
 import com.example.kit.database.model.News;
 
@@ -41,6 +43,7 @@ public class Splash extends Activity {
     private final int SPLASH_DISPLAY_LENGTH = 2000;
     private KeywordDatabaseHelper keywordDB;
     private NewsDatabaseHelper newsDB;
+    private ENewsDatabaseHelper enewsDB;
     private long now;
 
     /** 처음 액티비티가 생성될때 불려진다. */
@@ -71,6 +74,7 @@ public class Splash extends Activity {
 
     class DownloadNews extends AsyncTask<String, Void, String> {
         List<listBean> listbean = new ArrayList<>();
+        List<listBean> Elistbean = new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -80,15 +84,20 @@ public class Splash extends Activity {
 
             keywordDB = new KeywordDatabaseHelper(Splash.this);
             newsDB = new NewsDatabaseHelper(Splash.this);
+            enewsDB = new ENewsDatabaseHelper(Splash.this);
             //Keyword wordArray [] = keywordDB.getAllWords();
             List<Keyword> wordList = keywordDB.getAllWords();
 
             String urlParameters = "";
             for(Keyword keyword:wordList){
                 listBean list = new listBean();
-                list.setUrl(Function.excuteGet("https://www.googleapis.com/customsearch/v1/?key=AIzaSyBb3wLexTbAqMdRB0JJw7ajcPE8555m-o4&cx=006483914068273192856:_qesssnwq6m&q="+keyword.getWord(), urlParameters));
+                listBean Elist = new listBean();
+                list.setUrl(Function.excuteGet("https://newsapi.org/v2/everything?q="+keyword.getWord()+"&apiKey=c8f2561ef6fc46ddb53e4c2aba16169f", urlParameters));
                 list.setKeyword(keyword.getWord());
                 listbean.add(list);
+                Elist.setUrl(Function.excuteGet("https://newsapi.org/v2/everything?q="+keyword.getTword()+"&apiKey=bf103cbcd632498482297b681a18eecc", urlParameters));
+                Elist.setKeyword(keyword.getWord());
+                Elistbean.add(Elist);
             }
 //            for(int i = 0; i<wordArray.length; i++){
 //                listBean list = new listBean();
@@ -111,14 +120,17 @@ public class Splash extends Activity {
                         String formatDate = sdfNow.format(date);
                         SimpleDateFormat fmtOut = new SimpleDateFormat("MMM d");
 
-
+                        Log.d("time1 : ",formatDate);
+                        Log.d("time2 : ",fmtOut.format(date));
                         if((newsDB.getNewsCount()==0)||((newsDB.getNewsCount()!=0)&&(!((formatDate(newsDB.getNews().getTimestamp())).equals(fmtOut.format(date)))))){
-                            Log.d("time : ",fmtOut.format(date));
+                            Log.d("time3 : ",fmtOut.format(date));
 
                             if(((newsDB.getNewsCount()!=0)&&(!((formatDate(newsDB.getNews().getTimestamp())).equals(fmtOut.format(date)))))){
                                 Log.d("dbTime : ", formatDate(newsDB.getNews().getTimestamp()));
                                 List<News> newsList = newsDB.getAllNews();
+                                List<News> eNewsList = enewsDB.getAllNews();
                                 for(News news : newsList){newsDB.deleteNews(news);}
+                                for(News news : eNewsList){enewsDB.deleteNews(news);}
                             }
 
 
@@ -129,7 +141,7 @@ public class Splash extends Activity {
 
                                     JSONObject jsonObj = new JSONObject(listBean.getUrl());
 
-                                    JSONArray arrayArticles = jsonObj.getJSONArray("items"); //뉴스 목록들 받아옴
+                                    JSONArray arrayArticles = jsonObj.getJSONArray("articles"); //뉴스 목록들 받아옴
 
                                     for (int i = 0, j = arrayArticles.length(); i < j; i++) {
                                         JSONObject obj = arrayArticles.getJSONObject(i); //obj는 뉴스 하나의 내용
@@ -138,21 +150,10 @@ public class Splash extends Activity {
 
                                         News newsBean = new News();
                                         newsBean.setTitle(obj.getString("title"));
-                                        Log.d("ENews", newsBean.getTitle());
-                                        newsBean.setUrl(obj.getString("link"));
-                                        newsBean.setDes(obj.getString("htmlSnippet"));
-                                        JSONObject pageObj = obj.getJSONObject("pagemap");
-                                        Log.d("ENews", pageObj.toString());
-                                        JSONArray arrayMet = pageObj.getJSONArray("metatags");
-                                        Log.d("ENews", arrayMet.toString());
-                                        JSONObject objMet = arrayMet.getJSONObject(0);
-                                        Log.d("ENews", objMet.toString());
-                                        newsBean.setImg(objMet.getString("og:image"));
-                                        Log.d("ENews", newsBean.getImg());
-                                        //newsBean.setDes(objMet.getString("og:description"));
-                                        //Log.d("ENews", newsBean.getDes());
+                                        newsBean.setImg(obj.getString("urlToImage"));
+                                        newsBean.setDes(obj.getString("description"));
+                                        newsBean.setUrl(obj.getString("url"));
                                         newsBean.setKey(listBean.getKeyword());
-                                        Log.d("ENews", newsBean.getKey());
                                         long id = newsDB.insertNews(newsBean);
                                         if(id>=0) Log.d("InsertSuccess", Long.toString(id));
                                         if(id<0) Log.d("InsertFailed", Long.toString(id));
@@ -166,6 +167,37 @@ public class Splash extends Activity {
                         }else{
                             Toast.makeText(getApplicationContext(), "No news found", Toast.LENGTH_SHORT).show();
                         }
+                            if(Elistbean.size()!=0){ // Just checking if not empty
+                                for(listBean listBean : Elistbean) {
+
+                                    try {
+
+                                        JSONObject jsonObj = new JSONObject(listBean.getUrl());
+
+                                        JSONArray arrayArticles = jsonObj.getJSONArray("articles"); //뉴스 목록들 받아옴
+
+                                        for (int i = 0, j = arrayArticles.length(); i < j; i++) {
+                                            JSONObject obj = arrayArticles.getJSONObject(i); //obj는 뉴스 하나의 내용
+
+                                            News newsBean = new News();
+                                            newsBean.setTitle(obj.getString("title"));
+                                            newsBean.setImg(obj.getString("urlToImage"));
+                                            newsBean.setDes(obj.getString("description"));
+                                            newsBean.setUrl(obj.getString("url"));
+                                            newsBean.setKey(listBean.getKeyword());
+                                            long id = enewsDB.insertNews(newsBean);
+                                            if(id>=0) Log.d("InsertSuccess", Long.toString(id));
+                                            if(id<0) Log.d("InsertFailed", Long.toString(id));
+                                        }
+
+                                    } catch (JSONException e) {
+                                        Toast.makeText(getApplicationContext(), "Unexpected error", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                            }else{
+                                Toast.makeText(getApplicationContext(), "No news found", Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         // Start your app main activity

@@ -1,43 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="titles">
-        <!--섹션,0~5-->
+        <!--섹션,0~4-->
         <item>4차산업혁명</item>
         <item>보안</item>
         <item>AI</item>
         <item>개발/기기</item>
-        <item>Cloud</item>
         <item>Tech</item>
-        <!--1,4차 산업혁명,6~13-->
+        <!--1,4차 산업혁명,5~11-->
         <item>빅데이터</item>
         <item>블록체인</item>
         <item>인공지능</item>
         <item>사물인터넷</item>
         <item>자율주행</item>
-        <item>AR</item>
-        <item>VR</item>
-        <item>3D프린터</item>
-        <!--2,보안,14~17-->
-        <item>디지털포렌직</item>
+        <item>가상현실</item>
+        <item>클라우드</item>
+        <!--2,보안,12~14-->
         <item>해킹</item>
         <item>백신</item>
         <item>랜섬웨어</item>
-        <!--3,AI,18~20-->
+        <!--3,AI,15~17-->
         <item>딥러닝</item>
         <item>머신러닝</item>
         <item>챗봇</item>
-        <!--4,개발/기기,21~26-->
-        <item>코딩</item>
-        <item>프로그래밍</item>
-        <item>IOS</item>
+        <!--4,개발/기기,18~20-->
         <item>아이폰</item>
         <item>안드로이드</item>
         <item>인터페이스</item>
-        <!--5,Cloud,27~28-->
-        <item>컨테이너</item>
-        <item>도커</item>
-        <!--6,Tech,29~34-->
-        <item>암호화폐</item>
+        <!--6,Tech,21~25-->
         <item>자동화</item>
         <item>핀테크</item>
         <item>드론</item>

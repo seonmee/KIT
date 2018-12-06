@@ -1,7 +1,7 @@
 package com.example.kit.database.model;
 
-public class News {
-    public static final String TABLE_NAME = "news";
+public class ENews {
+    public static final String TABLE_NAME = "enews";
 
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_URL = "url";
@@ -30,10 +30,10 @@ public class News {
                     + COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP"
                     + ")";
 
-    public News() {
+    public ENews() {
     }
 
-    public News(String title, String url, String img, String des, String key, String timestamp) {
+    public ENews(String title, String url, String img, String des, String key, String timestamp) {
         this.title = title;
         this.url = url;
         this.img = img;

@@ -130,6 +130,14 @@ public class newsKoreanFragment extends Fragment implements View.OnClickListener
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getNews();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.commit();
+    }
+
     public void getNews() {
 
         db = new KeywordDatabaseHelper(getActivity());
@@ -176,16 +184,6 @@ public class newsKoreanFragment extends Fragment implements View.OnClickListener
 
         });
         mRecyclerView.setAdapter(mAdapter);//정상적으로 처리
-
-
-//        for(int i = 1; i<3; i++){
-//            for(Keyword keyword : keywords){
-//                listBean listBean = new listBean();
-//                listBean.setKeyword(keyword.getWord());
-//                listBean.setUrl("https://www.googleapis.com/customsearch/v1?key=AIzaSyBCkBYSKgRZrNveVLYcHouy-764y0l-XxY&cx=000650060222557471131:igl-qjs8vfc&q="+keyword.getWord()+"&start="+((10*i)+1));
-//                urlList.add(listBean);
-//            }
-//        }
 
     }
 

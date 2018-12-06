@@ -85,8 +85,7 @@ public class keywordDialog extends Activity implements FilterCallback {
                 new FilterItemModel(2, sections[1], colors[1], 0, 0),
                 new FilterItemModel(3, sections[2], colors[2],0, 0),
                 new FilterItemModel(4, sections[3], colors[3], 0, 0),
-                new FilterItemModel(5, sections[4], colors[4], 0, 0),
-                new FilterItemModel(6, sections[5], colors[0], 0, 0)
+                new FilterItemModel(5, sections[4], colors[4], 0, 0)
         );
 
         categories = Arrays.asList(
@@ -97,28 +96,20 @@ public class keywordDialog extends Activity implements FilterCallback {
                 new FilterItemModel(0,  keywords.get(4).getWord(), colors[0], keywords.get(4).getIsSelected(), 1),
                 new FilterItemModel(0,  keywords.get(5).getWord(), colors[0], keywords.get(5).getIsSelected(), 1),
                 new FilterItemModel(0,  keywords.get(6).getWord(), colors[0], keywords.get(6).getIsSelected(), 1),
-                new FilterItemModel(0,  keywords.get(7).getWord(), colors[0], keywords.get(7).getIsSelected(), 1)
-//                new FilterItemModel(0,  keywords[8].getWord(), colors[0], keywords[8].getIsSelected(), 2),
-//                new FilterItemModel(0,  keywords[9].getWord(), colors[0], keywords[9].getIsSelected(), 2),
-//                new FilterItemModel(0,  keywords[10].getWord(), colors[0], keywords[10].getIsSelected(), 2),
-//                new FilterItemModel(0,  keywords[11].getWord(), colors[0], keywords[11].getIsSelected(), 2),
-//                new FilterItemModel(0,  keywords[12].getWord(), colors[0], keywords[12].getIsSelected(), 3),
-//                new FilterItemModel(0,  keywords[13].getWord(), colors[0], keywords[13].getIsSelected(), 3),
-//                new FilterItemModel(0,  keywords[14].getWord(), colors[0], keywords[14].getIsSelected(), 3),
-//                new FilterItemModel(0,  keywords[15].getWord(), colors[0], keywords[15].getIsSelected(), 4),
-//                new FilterItemModel(0,  keywords[16].getWord(), colors[0], keywords[16].getIsSelected(), 4),
-//                new FilterItemModel(0,  keywords[17].getWord(), colors[0], keywords[17].getIsSelected(), 4),
-//                new FilterItemModel(0,  keywords[18].getWord(), colors[0], keywords[18].getIsSelected(), 4),
-//                new FilterItemModel(0,  keywords[19].getWord(), colors[0], keywords[19].getIsSelected(), 4),
-//                new FilterItemModel(0,  keywords[20].getWord(), colors[0], keywords[20].getIsSelected(), 4),
-//                new FilterItemModel(0,  keywords[21].getWord(), colors[0], keywords[21].getIsSelected(), 5),
-//                new FilterItemModel(0,  keywords[22].getWord(), colors[0], keywords[22].getIsSelected(), 5),
-//                new FilterItemModel(0,  keywords[23].getWord(), colors[0], keywords[23].getIsSelected(), 6),
-//                new FilterItemModel(0,  keywords[24].getWord(), colors[0], keywords[24].getIsSelected(), 6),
-//                new FilterItemModel(0,  keywords[25].getWord(), colors[0], keywords[25].getIsSelected(), 6),
-//                new FilterItemModel(0,  keywords[26].getWord(), colors[0], keywords[26].getIsSelected(), 6),
-//                new FilterItemModel(0,  keywords[27].getWord(), colors[0], keywords[27].getIsSelected(), 6),
-//                new FilterItemModel(0,  keywords[28].getWord(), colors[0], keywords[28].getIsSelected(), 6)
+                new FilterItemModel(0,  keywords.get(7).getWord(), colors[0], keywords.get(7).getIsSelected(), 2),
+                new FilterItemModel(0,  keywords.get(8).getWord(), colors[0], keywords.get(8).getIsSelected(), 2),
+                new FilterItemModel(0,  keywords.get(9).getWord(), colors[0], keywords.get(9).getIsSelected(), 2),
+                new FilterItemModel(0,  keywords.get(10).getWord(), colors[0], keywords.get(10).getIsSelected(), 3),
+                new FilterItemModel(0,  keywords.get(11).getWord(), colors[0], keywords.get(11).getIsSelected(), 3),
+                new FilterItemModel(0,  keywords.get(12).getWord(), colors[0], keywords.get(12).getIsSelected(), 3),
+                new FilterItemModel(0,  keywords.get(13).getWord(), colors[0], keywords.get(13).getIsSelected(), 4),
+                new FilterItemModel(0,  keywords.get(14).getWord(), colors[0], keywords.get(14).getIsSelected(), 4),
+                new FilterItemModel(0,  keywords.get(15).getWord(), colors[0], keywords.get(15).getIsSelected(), 4),
+                new FilterItemModel(0,  keywords.get(16).getWord(), colors[0], keywords.get(16).getIsSelected(), 5),
+                new FilterItemModel(0,  keywords.get(17).getWord(), colors[0], keywords.get(17).getIsSelected(), 5),
+                new FilterItemModel(0,  keywords.get(18).getWord(), colors[0], keywords.get(18).getIsSelected(), 5),
+                new FilterItemModel(0,  keywords.get(19).getWord(), colors[0], keywords.get(19).getIsSelected(), 5),
+                new FilterItemModel(0,  keywords.get(20).getWord(), colors[0], keywords.get(20).getIsSelected(), 5)
         );
 
         customFilterAdapter = new CustomFilterAdapter(this, filters, this);

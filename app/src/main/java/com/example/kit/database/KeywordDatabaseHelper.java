@@ -36,30 +36,22 @@ public class KeywordDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (3,'인공지능','AI',0)");
         db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (4,'사물인터넷','IoT',0)");
         db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (5,'자율주행','self+driving',0)");
-        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (6,'AR','AR',0)");
-        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (7,'VR','VR',0)");
-        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (8,'3D프린터','3D+Printing',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (9,'디지털포렌식','digital+forensics',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (10,'해킹','hacking',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (11,'백신','vaccine',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (12,'랜섬웨어','Ransomware',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (13,'딥러닝','deep+learning',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (14,'머신러닝','machine+learning',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (15,'챗봇','chatter+robot',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (16,'코딩','coding',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (17,'프로그래밍','programming',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (18,'iOS','iOS',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (19,'아이폰','iPhone',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (20,'안드로이드','android',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (21,'인터페이스','interface',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (22,'컨테이너','container',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (23,'도커','docker',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (24,'암호화폐','cryptocurrency',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (25,'자동화','automation',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (26,'핀테크','Fintech',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (27,'드론','drone',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (28,'플랫폼','platform',0)");
-//        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (29,'바이오','Bio',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (6,'가상현실','vr+OR+ar',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (7,'클라우드','cloud',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (8,'해킹','hacking',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (9,'백신','vaccine',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (10,'랜섬웨어','Ransomware',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (11,'딥러닝','deep+learning',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (12,'머신러닝','machine+learning',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (13,'챗봇','chatter+robot',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (14,'아이폰','iPhone',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (15,'안드로이드','android',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (16,'인터페이스','interface',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (17,'자동화','automation',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (18,'핀테크','Fintech',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (19,'드론','drone',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (20,'플랫폼','platform',0)");
+        db.execSQL("INSERT INTO " + Keyword.TABLE_NAME + "(id, word, Tword, isSelected ) VALUES (21,'바이오','Bio',0)");
     }
 
     // Upgrading database
