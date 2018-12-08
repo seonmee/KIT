@@ -123,7 +123,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
                     mDb.createScrab(news.getKeyword(), news.getTitle(), news.getUrl());
                 }
                 else {
-                    mDb.delete(news.getTitle());
+                    mDb.delete(news.getUrl());
                 }
 
                 /* 누르면 저장되고 */

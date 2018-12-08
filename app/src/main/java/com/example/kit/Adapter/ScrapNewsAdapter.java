@@ -104,7 +104,7 @@ public class ScrapNewsAdapter extends RecyclerView.Adapter<ScrapNewsAdapter.View
                         notifyItemRemoved(viewHolder.getAdapterPosition());
                         notifyItemRangeChanged(viewHolder.getAdapterPosition(),mNewsList.size());
                         /* db 에서 제거 */
-                        mDb.delete(viewHolder.title.getText().toString());
+                        mDb.delete(mDb.getUrl(viewHolder.title.getText().toString()));
                     }
                 });
 

@@ -40,13 +40,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /* title 안에 "" 가 있으면 error */
-    public void delete(String title){
+    public void delete(String url){
         SQLiteDatabase db = this.getWritableDatabase();
-        String mTitle = title;
+        String mTitle = url;
 
         db.execSQL("DELETE FROM " + scrapDB.TABLE_NAME
-                + " WHERE " + scrapDB.COLUMN_TITLE
-                + " = " + "\'" + title + "\'"
+                + " WHERE " + scrapDB.COLUMN_URL
+                + " = " + "\'" + url + "\'"
                 + ";");
     }
 
