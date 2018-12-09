@@ -289,19 +289,19 @@ public class newsKoreanFragment extends Fragment implements View.OnClickListener
                     }
 
                 } catch (JSONException e) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        public void run() {
-                            Toast.makeText(getActivity(), "Unexpected error", Toast.LENGTH_SHORT).show();                        }
-                    });
+//                    getActivity().runOnUiThread(new Runnable() {
+//                        public void run() {
+//                            Toast.makeText(getActivity(), "Unexpected error", Toast.LENGTH_SHORT).show();                        }
+//                    });
 
                 }
             }
 
         }else{
-            getActivity().runOnUiThread(new Runnable() {
-                public void run() {
-                    Toast.makeText(getActivity(), "No news found", Toast.LENGTH_SHORT).show();                        }
-            });
+//            getActivity().runOnUiThread(new Runnable() {
+//                public void run() {
+//                    Toast.makeText(getActivity(), "No news found", Toast.LENGTH_SHORT).show();                        }
+//            });
         }
 
         for(News news : newsList){
