@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.kit.DB.DatabaseHelper;
 import com.example.kit.database.model.Keyword;
 
 import java.util.ArrayList;
@@ -19,6 +20,16 @@ public class KeywordDatabaseHelper extends SQLiteOpenHelper {
 
     // Database Name
     private static final String DATABASE_NAME = "keywords_db";
+
+    private static KeywordDatabaseHelper instance;
+
+    public static synchronized KeywordDatabaseHelper getInstance(Context context)
+    {
+        if (instance == null)
+            instance = new KeywordDatabaseHelper(context);
+
+        return instance;
+    }
 
     public KeywordDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -64,51 +75,6 @@ public class KeywordDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-//    public long insertKeyword(String keyword) {
-//        // get writable database as we want to write data
-//        SQLiteDatabase db = this.getWritableDatabase();
-//
-//        ContentValues values = new ContentValues();
-//        // `id` and `timestamp` will be inserted automatically.
-//        // no need to add them
-//        values.put(Keyword.COLUMN_WORD, keyword);
-//        values.put(Keyword.COLUMN_ISSELECTED, 1);
-//        //switch-case문으로 Tword추가
-//
-//        // insert row
-//        long id = db.insert(Keyword.TABLE_NAME, null, values);
-//
-//        // close db connection
-//        db.close();
-//        // return newly inserted row id
-//        return id;
-//    }
-
-//    public Keyword getKeyword(long id) {
-//        // get readable database as we are not inserting anything
-//        SQLiteDatabase db = this.getReadableDatabase();
-//
-//        Cursor cursor = db.query(Keyword.TABLE_NAME,
-//                new String[]{Keyword.COLUMN_ID, Keyword.COLUMN_WORD, Keyword.COLUMN_TWORD, Keyword.COLUMN_ISSELECTED},
-//                Keyword.COLUMN_ID + "=?",
-//                new String[]{String.valueOf(id)}, null, null, null, null);
-//
-//        if (cursor != null)
-//            cursor.moveToFirst();
-//
-//        // prepare note object
-//        Keyword keyword = new Keyword(
-//                cursor.getInt(cursor.getColumnIndex(Keyword.COLUMN_ID)),
-//                cursor.getString(cursor.getColumnIndex(Keyword.COLUMN_WORD)),
-//                cursor.getString(cursor.getColumnIndex(Keyword.COLUMN_TWORD)),
-//                cursor.getInt(cursor.getColumnIndex(Keyword.COLUMN_ISSELECTED)));
-//
-//        // close the db connection
-//        cursor.close();
-//
-//        return keyword;
-//    }
-
     public List<Keyword> getAllWords() {
         //Keyword keywords [] = new Keyword[34];
         //Keyword keywords [] = new Keyword[1];
@@ -134,7 +100,7 @@ public class KeywordDatabaseHelper extends SQLiteOpenHelper {
         }
 
         // close db connection
-        db.close();
+        //db.close();
 
         // return notes list
         return keywords;
@@ -164,7 +130,7 @@ public class KeywordDatabaseHelper extends SQLiteOpenHelper {
         }
 
         // close db connection
-        db.close();
+        //db.close();
 
         // return notes list
         return keywords;
@@ -176,7 +142,7 @@ public class KeywordDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(countQuery, null);
 
         int count = cursor.getCount();
-        cursor.close();
+        //cursor.close();
 
 
         // return count

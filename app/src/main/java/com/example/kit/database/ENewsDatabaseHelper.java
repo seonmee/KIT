@@ -20,6 +20,16 @@ public class ENewsDatabaseHelper extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "enews_db";
 
+    private static ENewsDatabaseHelper instance;
+
+    public static synchronized ENewsDatabaseHelper getInstance(Context context)
+    {
+        if (instance == null)
+            instance = new ENewsDatabaseHelper(context);
+
+        return instance;
+    }
+
     public ENewsDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -57,8 +67,22 @@ public class ENewsDatabaseHelper extends SQLiteOpenHelper {
         // insert row
         long id = db.insert(ENews.TABLE_NAME, null, values);
         // close db connection
-        db.close();
+      //  db.close();
         return id;
+    }
+
+    public int hasNews(String keyword) {
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + ENews.TABLE_NAME + " WHERE "+ENews.COLUMN_KEY+" =  '"+keyword+"'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        int count = cursor.getCount();
+        //cursor.close();
+        // return count
+        return count;
     }
 
     public List<News> getAllNews() {
@@ -86,7 +110,7 @@ public class ENewsDatabaseHelper extends SQLiteOpenHelper {
         }
 
         // close db connection
-        db.close();
+       // db.close();
 
         // return notes list
         return newsList;
@@ -117,19 +141,19 @@ public class ENewsDatabaseHelper extends SQLiteOpenHelper {
         }
 
         // close db connection
-        db.close();
+       // db.close();
 
         // return notes list
         return newsList;
     }//키워드에 해당되는 뉴스들
 
     public int getNewsCount() {
-        String countQuery = "SELECT  * FROM " + News.TABLE_NAME;
+        String countQuery = "SELECT  * FROM " + ENews.TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
 
         int count = cursor.getCount();
-        cursor.close();
+        //cursor.close();
 
 
         // return count
@@ -158,15 +182,14 @@ public class ENewsDatabaseHelper extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex(ENews.COLUMN_TIMESTAMP)));
 
         // close the db connection
-        cursor.close();
+        //cursor.close();
 
         return news;
     }
 
-    public void deleteNews(News news) {
+    public void deleteNews() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(ENews.TABLE_NAME, ENews.COLUMN_URL + " = ?",
-                new String[]{String.valueOf(news.getUrl())});
+        db.execSQL("DELETE FROM " + ENews.TABLE_NAME);
         db.close();
     }
 

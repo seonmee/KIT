@@ -20,6 +20,16 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
     // Database Name
     private static final String DATABASE_NAME = "news_db";
 
+    private static NewsDatabaseHelper instance;
+
+    public static synchronized NewsDatabaseHelper getInstance(Context context)
+    {
+        if (instance == null)
+            instance = new NewsDatabaseHelper(context);
+
+        return instance;
+    }
+
     public NewsDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -57,7 +67,7 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
         // insert row
         long id = db.insert(News.TABLE_NAME, null, values);
         // close db connection
-        db.close();
+        //db.close();
         return id;
     }
 
@@ -86,7 +96,7 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
         }
 
         // close db connection
-        db.close();
+        //db.close();
 
         // return notes list
         return newsList;
@@ -117,11 +127,25 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
         }
 
         // close db connection
-        db.close();
+        //db.close();
 
         // return notes list
         return newsList;
     }//키워드에 해당되는 뉴스들
+
+    public int hasNews(String keyword) {
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + News.TABLE_NAME + " WHERE "+News.COLUMN_KEY+" =  '"+keyword+"'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        int count = cursor.getCount();
+        cursor.close();
+        // return count
+        return count;
+    }
 
     public int getNewsCount() {
         String countQuery = "SELECT  * FROM " + News.TABLE_NAME;
@@ -163,10 +187,9 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
         return news;
     }
 
-    public void deleteNews(News news) {
+    public void deleteNews() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(News.TABLE_NAME, News.COLUMN_URL + " = ?",
-                new String[]{String.valueOf(news.getUrl())});
+        db.execSQL("DELETE FROM " + News.TABLE_NAME);
         db.close();
     }
 
