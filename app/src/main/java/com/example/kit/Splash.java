@@ -58,6 +58,7 @@ public class Splash extends Activity {
         setting = getSharedPreferences("setting", 0);
         time = setting.getString("time",null);
         newsDB = new NewsDatabaseHelper(this.getApplicationContext());
+        enewsDB = new ENewsDatabaseHelper(this.getApplicationContext());
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

@@ -208,7 +208,7 @@ public class newsKoreanFragment extends Fragment implements View.OnClickListener
         List<listBean> listbean = new ArrayList<>();
         List<News> newsList = new ArrayList<>();
 
-        List<News> getNewsList = new ArrayList<>();//임시
+        List<News> getNewsList = new ArrayList<>(); //임시
         mNewsBeans = new ArrayList<>();
         String urlParameters = "";
         if(wordList.size()>0){
@@ -226,7 +226,6 @@ public class newsKoreanFragment extends Fragment implements View.OnClickListener
                     list.setKeyword(word.getWord());
                     listbean.add(list);
                 }
-
             }
         }
         else{
@@ -350,143 +349,4 @@ public class newsKoreanFragment extends Fragment implements View.OnClickListener
             }
         }
     }
-
-
-    class DownloadNews extends AsyncTask<String, Void, String> {
-
-        RecyclerView mRecyclerView;
-        Activity mContex;
-
-        public  DownloadNews(Activity contex,RecyclerView rview)
-        {
-            this.mRecyclerView=rview;
-            this.mContex=contex;
-        }
-
-        List<listBean> listbean = new ArrayList<>();
-        List<News> newsList = new ArrayList<>();
-        List<Keyword> wordList = new ArrayList<>();
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-        }
-
-        protected String doInBackground(String... args) {
-
-            db = new KeywordDatabaseHelper(getActivity());
-            newsDB = new NewsDatabaseHelper(getActivity());
-            if (db.getKeywordsCount() > 0) {
-                wordList = db.getAllKeywords();
-            }
-            List<listBean> listbean = new ArrayList<>();
-
-            List<News> getNewsList = new ArrayList<>();//임시
-            mNewsBeans = new ArrayList<>();
-            String urlParameters = "";
-            if (!wordList.isEmpty()) {
-                for (Keyword word : wordList) {
-                    if (newsDB.hasNews(word.getWord()) > 0) {
-                        getNewsList = newsDB.getNews(word.getWord());
-                        for (News news : getNewsList) {
-                            newsList.add(news);
-                        }
-                        getNewsList.clear();
-                    } else {
-                        listBean list = new listBean();
-                        list.setUrl(Function.excuteGet("https://newsapi.org/v2/everything?q=" + word.getWord() + "&apiKey=84c04b988ee542a38f94ae96abc50406", urlParameters));
-                        list.setKeyword(word.getWord());
-                        listbean.add(list);
-                    }
-                }
-            } else {
-                listBean list = new listBean();
-                list.setUrl(Function.excuteGet("https://newsapi.org/v2/top-headlines?country=kr&category=technology&apiKey=84c04b988ee542a38f94ae96abc50406", urlParameters));
-                list.setKeyword("IT 기타");
-                listbean.add(list);
-                Log.d("hereisLog", listbean.get(0).getUrl());
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            if (listbean.size() != 0) { // Just checking if not empty
-                for (listBean listBean : listbean) {
-
-                    try {
-
-                        JSONObject jsonObj = new JSONObject(listBean.getUrl());
-
-                        JSONArray arrayArticles = jsonObj.getJSONArray("articles"); //뉴스 목록들 받아옴
-
-                        for (int i = 0, j = arrayArticles.length(); i < j; i++) {
-                            JSONObject obj = arrayArticles.getJSONObject(i); //obj는 뉴스 하나의 내용
-
-                            Log.d("News", obj.toString());
-
-                            News newsBean = new News();
-                            newsBean.setTitle(obj.getString("title"));
-                            newsBean.setImg(obj.getString("urlToImage"));
-                            newsBean.setDes(obj.getString("description"));
-                            newsBean.setUrl(obj.getString("url"));
-                            newsBean.setKey(listBean.getKeyword());
-                            newsList.add(newsBean);
-                        }
-
-                    } catch (JSONException e) {
-                        Toast.makeText(getActivity(), "Unexpected error", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-            } else {
-                Toast.makeText(getActivity(), "No news found", Toast.LENGTH_SHORT).show();
-            }
-
-            for (News news : newsList) {
-                newsBean newsBean = new newsBean();
-                newsBean.setUrl(news.getUrl());
-                newsBean.setContent(news.getDes());
-                newsBean.setTitle(news.getTitle());
-                newsBean.setKeyword(news.getKey());
-                newsBean.setUrlToImage(news.getImg());
-                mNewsBeans.add(newsBean);
-            }
-
-            mAdapter = new NewsAdapter(mNewsBeans, getActivity(), new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Object obj = v.getTag();
-                    if (obj != null) {
-                        int position = (int) obj;
-                        Intent intent = new Intent(getActivity(), NewsDetail.class);
-                        intent.putExtra("content", ((NewsAdapter) mAdapter).getNews(position).getUrl());
-                        startActivity(intent);
-                    }
-                    // Instantiate the RequestQueue.
-
-
-                }
-
-            });
-            mRecyclerView.setAdapter(mAdapter);//정상적으로 처리
-
-            if (wordList.size() > 0) {
-                for (Keyword word : wordList) {
-                    if (newsDB.hasNews(word.getWord()) < 1) {
-                        for (News news : newsList) {
-                            if (news.getKey().equals(word.getWord())) {
-                                long id = newsDB.insertNews(news);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-
-
 }
